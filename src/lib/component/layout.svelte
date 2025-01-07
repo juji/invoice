@@ -13,6 +13,8 @@
 		color: string
 	} = $props();
 
+	// svelte-ignore non_reactive_update
+	// was used
 	let total = 0
 	let currency = ''
 	let items: JInvoice['items'] = []
@@ -57,7 +59,7 @@
 	client = invoiceRef.client
 
 	const itemWithCurr = invoiceRef.items.find(v => v.isNumber && v.currency)
-	if(!itemWithCurr) throw new Error('No item with currency')
+	if(!itemWithCurr) throw new Error('Priceless items should not need an invoice or receipt')
 	currency = itemWithCurr.currency as string
 	
 	total = invoiceRef.items.reduce((a,b) => a + (b.isNumber ? (b.price as number) : 0), 0)
@@ -162,7 +164,7 @@
 </main>
 <footer class="save">
 	<p>To save on paper (and your printer ink), It is not recommended to print this document.</p>
-	<p>Be Jolly, and thank you ;)</p>
+	<p>Be jolly, and thank you ;)</p>
 </footer>
 
 </div>

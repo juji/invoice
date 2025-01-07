@@ -5,6 +5,10 @@
   /** @type {{ data: import('./$types').PageData }} */
 	let { data } = $props();
 
+  $effect(() => {
+    window.print()
+  })
+
 </script>
 
 <svelte:head>
