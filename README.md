@@ -30,6 +30,8 @@ It will ask you what to do.
   <img width="842" height="630" src="https://raw.githubusercontent.com/juji/invoice/refs/heads/main/static/screenshot.png">
 </p>
 
+It will also requires you to have a secure accessible subscription/payment url (https), and a secure url to view the payment receipt.
+
 ## Customization
 
 Checkout `src/lib/components`.
