@@ -1,58 +1,46 @@
-# Invoice & Receipt
+# Invoice & Receipt Creator
 
-create data in `lib/data/`
+Is an Invoice and Receipt creator for freelancing web developers.
 
-and print as pdf
 
-## example
+## Tech stack
 
-```
-`lib/data/invoice/myinvoice.json`
-```
+It uses [Svelte](https://svelte.dev/) with [TypeScript](https://www.typescriptlang.org/).
+Along with [bun](https://bun.sh/), for that [$](https://bun.sh/guides/runtime/shell) syntax that this software is using.
 
-Will be availabe at:
+## Starting: installing dependencies
 
-```
-/invoice/myinvoice
+```zsh
+bun i
 ```
 
-and
+## Creating Clients, Invoice and Receipt
 
 ```
-`lib/data/receipt/myreceipt.json`
+bun run create
 ```
 
-Will be availabe at:
+It will ask you what to do.
 
+<p align="center">
+  <img width="842" height="630" src="https://picsum.photos/460/300">
+</p>
+
+## Customization
+
+Checkout `src/lib/components`.
+
+The layout is provided in `main.svelte`. The rest is as the names suggest.
+
+Start you dev server:
 ```
-/receipt/myreceipt
+bun run dev
 ```
+and start doing changes.
 
-## Filenames
+## Example Results
 
-Filenames is being used as id. It should reflect: 
+- [invoice](https://asdf.com)
+- [receipt](https://asdf.com)
 
-1. Client
-2. type
-3. date
-4. revisions
-
-Example:
-
-```
-Client: BIGFOOT
-type: invoice
-date: 2004-12-12
-revision num: 9
-
-Name: BIGFOOT-i-2004-12-12-9
-```
-
-```
-Client: BIGFOOT
-type: receipt
-date: 2004-10-12
-revision num: 0
-
-Name: BIGFOOT-r-2004-10-12-0
-```
+Cheers, juji.
