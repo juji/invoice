@@ -36,7 +36,7 @@ Checkout `src/lib/components`.
 
 The layout is provided in `main.svelte`. The rest is as the names suggest.
 
-Colors are available in `src/styles/main.css`.
+Colors are available in `src/lib/styles/main.css`.
 
 Start you dev server:
 
