@@ -161,7 +161,7 @@
 	</div>
 </main>
 <footer class="save">
-	<p>To save on paper, It is not recommended to print this document.</p>
+	<p>To save on paper (and your printer ink), It is not recommended to print this document.</p>
 	<p>Be Jolly, and thank you ;)</p>
 </footer>
 
