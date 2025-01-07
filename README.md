@@ -23,7 +23,7 @@ bun run create
 It will ask you what to do.
 
 <p align="center">
-  <img width="842" height="630" src="https://picsum.photos/460/300">
+  <img width="842" height="630" src="https://raw.githubusercontent.com/juji/invoice/refs/heads/main/static/screenshot.png">
 </p>
 
 ## Customization
@@ -43,7 +43,7 @@ and start doing changes.
 
 ## Example Results
 
-- [invoice](https://asdf.com)
-- [receipt](https://asdf.com)
+- [invoice](https://github.com/juji/invoice/blob/main/static/asdf-inv-2025.01.06-1.pdf)
+- [receipt](https://github.com/juji/invoice/blob/main/static/asdf-receipt-2025.01.07-1.pdf)
 
 Cheers, juji.
