@@ -7,17 +7,19 @@
     receiptId, 
     date
   }:{
-    color: string 
+    color: 'invoice' | 'receipt' 
     title: string
     invoiceId?: string 
     receiptId?: string 
     date: Date
   } = $props()
 
+  const bgColor = color === 'invoice' ? `var(--invoice-color)` : `var(--receipt-color)`
+
 </script>
 
 <div class="right-header">
-  <p class="title" style={`--color:${color}`}>{title}</p>
+  <p class="title" style={`--color:${bgColor}`}>{title}</p>
   {#if receiptId}
     <p>Receipt ID: {receiptId}</p>
   {/if}

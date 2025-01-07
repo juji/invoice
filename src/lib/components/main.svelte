@@ -17,7 +17,7 @@
 		id: string
 		data: JInvoice | JReceipt
 		title: 'Invoice' | 'Receipt' 
-		color: string
+		color: 'invoice' | 'receipt'
 	} = $props();
 
 	// svelte-ignore non_reactive_update

@@ -18,6 +18,6 @@
 <Layout 
   id={data.id}
   data={data.data}
-  color={'#139740'}
+  color={'receipt'}
   title="Receipt"
 />

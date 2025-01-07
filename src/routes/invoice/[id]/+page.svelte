@@ -18,6 +18,6 @@
 <Layout 
   id={data.id}
   data={data.data}
-  color={'#f400ff'}
+  color={'invoice'}
   title="Invoice"
 />
