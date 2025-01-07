@@ -2,6 +2,8 @@
   "date": "2025-01-06T20:39:57.264Z",
   "singlePaymentUrl": "https://url.com",
   "subscriptionUrl": "https://url.com",
+  "numberFormatLocale": "en-AU",
+  "numberFormatCurrency": "AUD",
   "client": {
     "code": "asdf",
     "name": "asdf client",
@@ -12,14 +14,10 @@
   "items": [
     {
       "name": "Doing mischievous stuff",
-      "price": 99999,
-      "currency": "USD",
-      "isNumber": true
+      "price": 99999
     },
     {
-      "name": "Doing good stuff",
-      "price": "priceless",
-      "isNumber": false
+      "name": "Doing good stuff"
     }
   ]
 }

@@ -1,4 +1,4 @@
-import { log } from '@clack/prompts';
+import { log, spinner } from '@clack/prompts';
 import puppeteer from 'puppeteer';
 import http from 'http'
 import serveStatic from 'serve-static'
@@ -14,7 +14,10 @@ export async function buildAndDownload({
  port?: number
 }){
 
-  await $`bun run build`
+  const s = spinner();
+  s.start('Running build');
+  await $`bun run build`.text()
+  s.stop('Docs Built');
 
   const serve = serveStatic('build')
   const server = http.createServer(function onRequest (req, res) {

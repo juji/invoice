@@ -1,9 +1,7 @@
 
 export type JInvoiceItem = {
   name: string
-  price: string | number
-  currency?: string
-  isNumber: boolean
+  price?: number
 }
 
 export type JInvoiceClient = {
@@ -16,10 +14,12 @@ export type JInvoiceClient = {
 
 export type JInvoice = {
   date: string
-  client: JInvoiceClient,
-  items: JInvoiceItem[],
+  client: JInvoiceClient
+  items: JInvoiceItem[]
   singlePaymentUrl: string
   subscriptionUrl: string
+  numberFormatLocale: string,
+  numberFormatCurrency: string,
   tax?: number
 }
 

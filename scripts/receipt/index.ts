@@ -1,6 +1,6 @@
-import { text, select, log, confirm } from '@clack/prompts';
+import { text, select, log } from '@clack/prompts';
 import { readdir, writeFile, readFile } from 'fs/promises';
-import { buildAndDownload } from '../lib/buil-and-download';
+import { buildAndDownload } from '../lib/build-and-download';
 import { addLeadingZero } from '../lib/add-leading-zero';
 
 async function getInvoices(){
@@ -10,7 +10,7 @@ async function getInvoices(){
     dirContents.map(async v => {
       const str = await readFile( `./src/lib/data/invoice/${v}`, { encoding: 'utf8'} )
       return {
-        id: v,
+        id: v.replace('.json',''),
         content: JSON.parse(str)
       }
     })
@@ -18,14 +18,12 @@ async function getInvoices(){
 
 }
 
-
-
 export default async function receipt (){
 
   const invoices = await getInvoices()
 
   const invoiceId = await select({
-    message: 'Select the client',
+    message: 'Select the invoice',
     options: invoices.map(v => {
       return {
         value: v.id,
@@ -77,7 +75,7 @@ export default async function receipt (){
 
   const v = await text({
     message: 'What version is this receipt?',
-    defaultValue: '1',
+    initialValue: '1',
     validate(value) {
       if (value.length === 0) return `Value is required!`;
       if(!Number(value)) return 'It should be a number with value';
@@ -101,5 +99,7 @@ export default async function receipt (){
     url: `/receipt/${fileName}.html`,
     file: `./results/${fileName}.pdf`
   })
+
+  log.success('done')
 
 }

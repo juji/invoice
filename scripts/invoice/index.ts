@@ -1,7 +1,7 @@
 import { text, select, log } from '@clack/prompts';
 import { readdir, writeFile, readFile } from 'fs/promises';
 import { type JInvoiceItem } from '../../src/lib/data/types'
-import { buildAndDownload } from '../lib/buil-and-download';
+import { buildAndDownload } from '../lib/build-and-download';
 import { addLeadingZero } from '../lib/add-leading-zero';
 
 async function getClients(){
@@ -52,6 +52,26 @@ export default async function invoice (){
 
   const subscriptionUrl = subscription.valueOf()
 
+  const locale = await text({
+    message: 'What\'s the locale for Intl.NumberFormat?',
+    initialValue: 'en-US',
+    validate(value) {
+      if (value.length === 0) return `Value is required!`;
+    },
+  });
+
+  const numberFormatLocale = locale.toString()
+
+  const currency = await text({
+    message: 'What\'s the currency for Intl.NumberFormat?',
+    initialValue: 'USD',
+    validate(value) {
+      if (value.length === 0) return `Value is required!`;
+    },
+  });
+
+  const numberFormatCurrency = currency.toString()
+
   let done = false
   let confirmDone = false
   let items: JInvoiceItem[] = []
@@ -81,14 +101,9 @@ export default async function invoice (){
 
       const data: {
         name: string
-        price: number | string
-        currency: string
-        isNumber: boolean
+        price?: number
       } = {
         name: n.valueOf() as string,
-        price: 0,
-        currency: "USD",
-        isNumber: true
       }
 
       const isPriceless = await select({
@@ -102,21 +117,10 @@ export default async function invoice (){
       if(isPriceless.valueOf()){
 
         log.info('Awesome!')
-        data.price = 'Priceless'
-        data.isNumber = false
         items.push(data)
         confirmDone = true
 
       }else{
-        const currency = await text({
-          message: 'What\'s the currency?',
-          defaultValue: 'USD',
-          validate(value) {
-            if (value.length === 0) return `Value is required!`;
-          },
-        });
-
-        data.currency = currency.valueOf() as string 
 
         const price = await text({
           message: 'What\'s the price?',
@@ -128,7 +132,6 @@ export default async function invoice (){
         });
 
         data.price = Number(price.valueOf())
-        data.isNumber = true
         items.push(data)
         confirmDone = true
 
@@ -140,7 +143,7 @@ export default async function invoice (){
 
   const v = await text({
     message: 'What version is this invoice?',
-    defaultValue: '1',
+    initialValue: '1',
     validate(value) {
       if (value.length === 0) return `Value is required!`;
       if(!Number(value)) return 'It should be a number with value';
@@ -155,6 +158,8 @@ export default async function invoice (){
     client,
     singlePaymentUrl,
     subscriptionUrl,
+    numberFormatCurrency,
+    numberFormatLocale,
     items,
     date: now.toISOString()
   }
@@ -173,6 +178,8 @@ export default async function invoice (){
     url: `/invoice/${fileName}.html`,
     file: `./results/${fileName}.pdf`
   })
+
+  log.success('done')
 
 
 }

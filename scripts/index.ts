@@ -6,13 +6,15 @@ const Acts = {
   receipt: './receipt/index',
 }
 
-intro(`                                                               
+console.log(`
     _/                                  _/                     
        _/_/_/    _/      _/    _/_/          _/_/_/    _/_/    
   _/  _/    _/  _/      _/  _/    _/  _/  _/        _/_/_/_/   
  _/  _/    _/    _/  _/    _/    _/  _/  _/        _/          
 _/  _/    _/      _/        _/_/    _/    _/_/_/    _/_/_/     
-`);
+`)
+
+intro(`Yo!`);
 
 const act = await select({
   message: 'Pick one',

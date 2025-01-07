@@ -3,13 +3,20 @@
 
   const {
     items,
-    currency,
+    numberFormatLocale,
+    numberFormatCurrency,
     total
   }:{
     items: JInvoice['items']
-    currency: string
+    numberFormatLocale: string
+    numberFormatCurrency: string
     total: number
   } = $props()
+
+  const intl = new Intl.NumberFormat( 
+    numberFormatLocale, 
+    { style: 'currency', currency: numberFormatCurrency } 
+  )
 
 </script>
 
@@ -17,29 +24,30 @@
   <thead>
     <tr>
       <th>Items</th>
-      <th>Price</th>
+      <th>Price ({numberFormatCurrency})</th>
     </tr>
   </thead>
   <tbody>
     {#each items as item }
       <tr>
         <td>{item.name}</td>
-        <td>{item.isNumber ? item.currency + ' ' + item.price : item.price}</td>
+        <td>{item.price ? intl.format(item.price) : 'priceless'}</td>
       </tr>
     {/each}
     <tr>
       <th>Total</th>
-      <th>{currency} {total}</th>
+      <th>{intl.format(total)}</th>
     </tr>
   </tbody>
 </table>
 
 <style>
+
   table{
 		width: 100%;
 		border-spacing: 0px;
 		border-collapse: collapse;
-		margin-bottom: 2rem;
+    margin-bottom: 2rem;
 
 		th, td{
 			text-align: left;

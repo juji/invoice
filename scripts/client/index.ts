@@ -1,4 +1,4 @@
-import { text } from '@clack/prompts';
+import { text, log } from '@clack/prompts';
 import { writeFile } from 'fs/promises'
 
 export default async function client (){
@@ -54,6 +54,8 @@ export default async function client (){
   }, null, 2)
 
   await writeFile( `./src/lib/data/client/${code}.json`, data )  
+
+  log.success('created')
 
 
 }

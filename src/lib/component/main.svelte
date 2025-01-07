@@ -23,7 +23,6 @@
 	// svelte-ignore non_reactive_update
 	// was used
 	let total = 0
-	let currency = ''
 	let items: JInvoice['items'] = []
 	let client: JInvoice['client'] | null = null
 	let clientAddress: string = ''
@@ -39,6 +38,8 @@
 	let subscriptionUrl = ''
 	let paymentDoneVia: JReceipt['paymentDoneVia'] | '' = ''
 	let paymentProofUrl = ''
+	let numberFormatLocale = ''
+	let numberFormatCurrency = ''
 
 	let invoiceRef: JInvoice | null = null
 	
@@ -65,11 +66,10 @@
 	items = invoiceRef.items
 	client = invoiceRef.client
 
-	const itemWithCurr = invoiceRef.items.find(v => v.isNumber && v.currency)
-	if(!itemWithCurr) throw new Error('Priceless items should not need an invoice or receipt')
-	currency = itemWithCurr.currency as string
+	numberFormatLocale = invoiceRef.numberFormatLocale
+	numberFormatCurrency = invoiceRef.numberFormatCurrency
 	
-	total = invoiceRef.items.reduce((a,b) => a + (b.isNumber ? (b.price as number) : 0), 0)
+	total = invoiceRef.items.reduce((a,b) => a + (b.price ? b.price : 0), 0)
 	clientAddress = invoiceRef.client.address
 	clientName = invoiceRef.client.name
 	clientPerson = invoiceRef.client.person
@@ -96,7 +96,8 @@
 	<main>
 		<Table 
 			items={items}
-			currency={currency}
+			numberFormatLocale={numberFormatLocale}
+			numberFormatCurrency={numberFormatCurrency}
 			total={total}
 		/>
 		<div class="bottom">
