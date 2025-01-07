@@ -10,6 +10,7 @@
 
 <style>
   .layout{
+    /* this can be problematic */
     height: 100vh;
     padding: 1rem;
   }

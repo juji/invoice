@@ -7,10 +7,11 @@ import { $ } from 'bun';
 
 
 export async function buildAndDownload({
-  url, file
+  url, file, port = 8765
 }:{
- url: string,
- file: string 
+ url: string
+ file: string
+ port?: number
 }){
 
   await $`bun run build`
@@ -21,11 +22,11 @@ export async function buildAndDownload({
   })
 
   await new Promise<void>((r,j) => {
-    server.listen(8765, async () => {
+    server.listen(port, async () => {
       try{
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
-        await page.goto(`http://localhost:8765${url}`);
+        await page.goto(`http://localhost:${port}${url}`);
         await page.pdf({ path: `${file}` });
         await browser.close()
         log.message(`pdf saved to ${file}`)
