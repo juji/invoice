@@ -1,0 +1,20 @@
+{
+  "client": {
+    "code": "asdf",
+    "name": "The Great Gatsby",
+    "address": "Gatbsy Boulevard, 21.",
+    "person": "Mr. Gatsby",
+    "personEmail": "gatsby@somewhere.com"
+  },
+  "singlePaymentUrl": "https://asdf.asdf",
+  "subscriptionUrl": "https://asdf.asdf",
+  "numberFormatCurrency": "USD",
+  "numberFormatLocale": "en-US",
+  "items": [
+    {
+      "name": "asdf",
+      "price": 234
+    }
+  ],
+  "date": "2025-01-07T20:20:06.322Z"
+}

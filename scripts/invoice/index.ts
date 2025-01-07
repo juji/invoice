@@ -3,6 +3,7 @@ import { readdir, writeFile, readFile } from 'fs/promises';
 import { type JInvoiceItem } from '../../src/lib/data/types'
 import { buildAndDownload } from '../lib/build-and-download';
 import { addLeadingZero } from '../lib/add-leading-zero';
+import { isHttpsUri } from 'valid-url';
 
 async function getClients(){
 
@@ -38,6 +39,7 @@ export default async function invoice (){
     message: 'What is the singlePaymentUrl?',
     validate(value) {
       if (value.length === 0) return `Value is required!`;
+      if (!isHttpsUri(value)) return `Value needs to be a secure url (https)!`;
     },
   });
 
@@ -47,6 +49,7 @@ export default async function invoice (){
     message: 'What is the subscriptionUrl?',
     validate(value) {
       if (value.length === 0) return `Value is required!`;
+      if (!isHttpsUri(value)) return `Value needs to be a secure url (https)!`;
     },
   });
 

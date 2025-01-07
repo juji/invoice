@@ -34,7 +34,7 @@ export async function buildAndDownload({
         await page.goto(`http://localhost:${port}${url}`);
         await page.pdf({ path: `${file}` });
         await browser.close()
-        log.message(`pdf saved to ${file}`)
+        // log.info(`pdf saved to ${file}`)
         server.closeAllConnections()
         server.close()
         r()

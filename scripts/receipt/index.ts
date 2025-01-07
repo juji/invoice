@@ -2,6 +2,7 @@ import { text, select, log } from '@clack/prompts';
 import { readdir, writeFile, readFile } from 'fs/promises';
 import { buildAndDownload } from '../lib/build-and-download';
 import { addLeadingZero } from '../lib/add-leading-zero';
+import { isHttpsUri } from 'valid-url';
 
 async function getInvoices(){
 
@@ -58,6 +59,7 @@ export default async function receipt (){
     message: 'What is the paymentProofUrl?',
     validate(value) {
       if (value.length === 0) return `Value is required!`;
+      if (!isHttpsUri(value)) return `Value needs to be a secure url (https)!`;
     },
   })
 
