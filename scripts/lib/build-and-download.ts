@@ -14,13 +14,13 @@ export async function buildAndDownload({
  file: string
 }){
 
-  const port = await getPort()
-
+  
   const s = spinner();
   s.start('Running build');
   await $`bun run build`.text()
   s.stop('Docs Built');
-
+  
+  const port = await getPort()
   const serve = serveStatic('build')
   const server = http.createServer(function onRequest (req, res) {
     serve(req, res, finalhandler(req, res))
