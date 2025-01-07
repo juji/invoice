@@ -6,11 +6,11 @@
   "numberFormatCurrency": "AUD",
   "client": {
     "code": "asdf",
-    "name": "asdf client",
-    "address": "DGR Charity\nABN 60 128 088 251\n168 Kent Street\nSydney 2000",
-    "person": "person",
-    "personEmail": "person@email.com"
-  }, 
+    "name": "The Great Gatsby",
+    "address": "Gatbsy Boulevard, 21.",
+    "person": "Mr. Gatsby",
+    "personEmail": "gatsby@somewhere.com"
+  },
   "items": [
     {
       "name": "Doing mischievous stuff",

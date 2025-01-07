@@ -1,6 +1,6 @@
 <script>
 
-  import Layout from "$lib/component/main.svelte";
+  import Layout from "$lib/components/main.svelte";
 
   /** @type {{ data: import('./$types').PageData }} */
 	let { data } = $props();
