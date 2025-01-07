@@ -4,15 +4,17 @@ import http from 'http'
 import serveStatic from 'serve-static'
 import finalhandler from 'finalhandler'
 import { $ } from 'bun';
+import getPort from 'get-port';
 
 
 export async function buildAndDownload({
-  url, file, port = 8765
+  url, file
 }:{
  url: string
  file: string
- port?: number
 }){
+
+  const port = await getPort()
 
   const s = spinner();
   s.start('Running build');
