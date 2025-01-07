@@ -1,4 +1,4 @@
-# Invoice & Receipt Creator
+# Invoice
 
 Is an Invoice and Receipt creator for freelancing web developers.
 
