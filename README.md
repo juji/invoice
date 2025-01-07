@@ -16,7 +16,7 @@ bun i
 
 ## Creating Clients, Invoice and Receipt
 
-```
+```zsh
 bun run create
 ```
 
@@ -32,8 +32,11 @@ Checkout `src/lib/components`.
 
 The layout is provided in `main.svelte`. The rest is as the names suggest.
 
+Colors are available in `src/styles/main.css`.
+
 Start you dev server:
-```
+
+```zsh
 bun run dev
 ```
 and start doing changes.
