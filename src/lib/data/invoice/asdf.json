@@ -12,7 +12,7 @@
   "items": [
     {
       "name": "Doing mischievous stuff",
-      "price": 9999,
+      "price": 99999,
       "currency": "USD",
       "isNumber": true
     },
