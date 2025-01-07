@@ -2,6 +2,10 @@
 
 Is an Invoice and Receipt creator for freelancing web developers.
 
+## Example Results
+
+- [invoice](https://github.com/juji/invoice/blob/main/static/asdf-inv-2025.01.06-1.pdf)
+- [receipt](https://github.com/juji/invoice/blob/main/static/asdf-receipt-2025.01.07-1.pdf)
 
 ## Tech stack
 
@@ -40,10 +44,5 @@ Start you dev server:
 bun run dev
 ```
 and start doing changes.
-
-## Example Results
-
-- [invoice](https://github.com/juji/invoice/blob/main/static/asdf-inv-2025.01.06-1.pdf)
-- [receipt](https://github.com/juji/invoice/blob/main/static/asdf-receipt-2025.01.07-1.pdf)
 
 Cheers, juji.
