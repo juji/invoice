@@ -32,6 +32,8 @@ It will ask you what to do.
 
 It will also requires you to have a secure accessible subscription/payment url (https), and a secure url to view the payment receipt.
 
+For storage, it is advised to keep this in a private repo. Since your data will be available in json format.
+
 ## Customization
 
 Checkout `src/lib/components`.
