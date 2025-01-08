@@ -62,7 +62,7 @@ export default async function client (){
   const address = a.valueOf()
 
   const p = await text({
-    message: "Name the person you are working with in this company",
+    message: "Name the person responsible for paying you",
     validate(value) {
       if (value.length === 0) return `Value is required!`;
     },
