@@ -11,10 +11,12 @@
 
 		p:first-of-type{
 			margin-top: 0;
+			margin-bottom: 0.3rem;
 		}
     
 		p:last-of-type{
 			margin-bottom: 0;
+			margin-top: 0;
 		}
 	}
 </style>
