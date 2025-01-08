@@ -1,8 +1,8 @@
 import { text, select, log } from '@clack/prompts';
 import { readdir, writeFile, readFile } from 'fs/promises';
 import { buildAndDownload } from '../lib/build-and-download';
-import { addLeadingZero } from '../lib/add-leading-zero';
 import { isHttpsUri } from 'valid-url';
+import { getVersionedFilename } from '../lib/get-versioned-filename';
 
 async function getInvoices(){
 
@@ -57,6 +57,7 @@ export default async function receipt (){
 
   const paymentProof = await text({
     message: 'What is the paymentProofUrl?',
+    initialValue: 'https://',
     validate(value) {
       if (value.length === 0) return `Value is required!`;
       if (!isHttpsUri(value)) return `Value needs to be a secure url (https)!`;
@@ -65,32 +66,20 @@ export default async function receipt (){
 
   const paymentProofUrl = paymentProof.valueOf()
 
+  const date = new Date()
   const data = {
     paymentProofUrl,
     paymentDoneVia,
     paymentUrl,
     invoiceId,
-    date: new Date().toISOString()
+    date: date.toISOString()
   }
 
-  const now = new Date()
-
-  const v = await text({
-    message: 'What version is this receipt?',
-    initialValue: '1',
-    validate(value) {
-      if (value.length === 0) return `Value is required!`;
-      if(!Number(value)) return 'It should be a number with value';
-      if(Number(value) < 0) return 'You really want to test something? test your sanity';
-    },
-  });
-
-  const version = v.toString()
-
-  const fileName = `${invoiceObj.client.code}-receipt-` +
-      `${now.getFullYear()}.` + 
-      `${addLeadingZero(now.getMonth()+1)}.` +
-      `${addLeadingZero(now.getDate())}-${version}`
+  const fileName = await getVersionedFilename({ 
+    clientCode: invoiceObj.client.code,
+    date,
+    type: 'receipt'
+  })
   
   await writeFile( 
     `./scripts/data/receipt/${fileName}.json`, 

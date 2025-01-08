@@ -4,6 +4,7 @@ import { type JInvoiceItem } from '../../scripts/data/types'
 import { buildAndDownload } from '../lib/build-and-download';
 import { addLeadingZero } from '../lib/add-leading-zero';
 import { isHttpsUri } from 'valid-url';
+import { getVersionedFilename } from '../lib/get-versioned-filename';
 
 async function getClients(){
 
@@ -37,6 +38,7 @@ export default async function invoice (){
 
   const singlePayment = await text({
     message: 'What is the singlePaymentUrl?',
+    initialValue: 'https://',
     validate(value) {
       if (value.length === 0) return `Value is required!`;
       if (!isHttpsUri(value)) return `Value needs to be a secure url (https)!`;
@@ -47,6 +49,7 @@ export default async function invoice (){
 
   const subscription = await text({
     message: 'What is the subscriptionUrl?',
+    initialValue: 'https://',
     validate(value) {
       if (value.length === 0) return `Value is required!`;
       if (!isHttpsUri(value)) return `Value needs to be a secure url (https)!`;
@@ -144,19 +147,7 @@ export default async function invoice (){
 
   }
 
-  const v = await text({
-    message: 'What version is this invoice?',
-    initialValue: '1',
-    validate(value) {
-      if (value.length === 0) return `Value is required!`;
-      if(!Number(value)) return 'It should be a number with value';
-      if(Number(value) < 0) return 'You really want to test something? test your sanity';
-    },
-  });
-
-  const version = v.toString()
-
-  const now = new Date()
+  const date = new Date()
   const data = {
     client,
     singlePaymentUrl,
@@ -164,13 +155,14 @@ export default async function invoice (){
     numberFormatCurrency,
     numberFormatLocale,
     items,
-    date: now.toISOString()
+    date: date.toISOString()
   }
 
-  const fileName = `${client.code}-inv-` +
-    `${now.getFullYear()}.` + 
-    `${addLeadingZero(now.getMonth()+1)}.` +
-    `${addLeadingZero(now.getDate())}-${version}`
+  const fileName = await getVersionedFilename({ 
+    clientCode: client.code,
+    date,
+    type: 'invoice'
+  })
 
   await writeFile( 
     `./scripts/data/invoice/${fileName}.json`, 
