@@ -1,6 +1,7 @@
 import { text, log, isCancel } from '@clack/prompts';
 import { stat } from 'fs/promises';
 import { writeFile } from 'fs/promises'
+import * as EmailValidator from 'email-validator';
 
 export default async function client (){
 
@@ -78,6 +79,7 @@ export default async function client (){
     message: "What is the email for that person?",
     validate(value) {
       if (value.length === 0) return `Value is required!`;
+      if(!EmailValidator.validate(value)) return `Email doesn't seem to be valid`
     },
   });
 
