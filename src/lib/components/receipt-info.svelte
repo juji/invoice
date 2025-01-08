@@ -23,5 +23,16 @@
 </div>
 
 <style>
-  
+  .receipt-info{
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+
+    p{
+      margin: 0;
+    }
+
+    p:first-child{
+      margin-bottom: 0.5rem;
+    }
+  }
 </style>
