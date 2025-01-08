@@ -2,7 +2,7 @@ import { isCancel, log, select, text } from "@clack/prompts";
 import type { JInvoiceItem } from "../../data/types";
 
 
-export async function addItems(){
+export async function addItems( defaultAmount: number ){
 
   let done = false
   let confirmDone = false
@@ -75,6 +75,7 @@ export async function addItems(){
 
         const price = await text({
           message: 'What\'s the price?',
+          defaultValue: defaultAmount ? defaultAmount+'' : '',
           validate(value) {
             if (value.length === 0) return `Value is required!`;
             if(!Number(value)) return 'It should be a number with value';

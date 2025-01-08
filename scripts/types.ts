@@ -11,6 +11,7 @@ export type InvoiceParams = {
   defaultSubscriptionUrl?: string
   defaultLocale?: string
   defaultCurrency?: string
+  defaultAmount?: number
 }
 
 export type Invoice = {

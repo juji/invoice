@@ -20,7 +20,8 @@ export default async function invoice (par?:InvoiceParams){
     defaultSinglePaymentUrl,
     defaultSubscriptionUrl,
     defaultLocale,
-    defaultCurrency
+    defaultCurrency,
+    defaultAmount
   } = par || {}
 
   //
@@ -76,7 +77,7 @@ export default async function invoice (par?:InvoiceParams){
   const numberFormatCurrency = currency.toString()
 
   //
-  const { canceled, items } = await addItems()
+  const { canceled, items } = await addItems( defaultAmount || 0 )
   if(canceled) return;
 
   //
