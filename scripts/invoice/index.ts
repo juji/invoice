@@ -1,8 +1,7 @@
-import { text, select, log } from '@clack/prompts';
+import { text, select, log, isCancel } from '@clack/prompts';
 import { readdir, writeFile, readFile } from 'fs/promises';
 import { type JInvoiceItem } from '../../scripts/data/types'
 import { buildAndDownload } from '../lib/build-and-download';
-import { addLeadingZero } from '../lib/add-leading-zero';
 import { isHttpsUri } from 'valid-url';
 import { getVersionedFilename } from '../lib/get-versioned-filename';
 
@@ -32,6 +31,11 @@ export default async function invoice (){
     })
   });
 
+  if(isCancel(clientSel)){
+    log.error('canceled')
+    return;
+  }
+
   const client = clients.find(v => v.code === clientSel.valueOf())
 
   if(!client) throw new Error(`client code: ${clientSel.valueOf()} not found`)
@@ -45,6 +49,11 @@ export default async function invoice (){
     },
   });
 
+  if(isCancel(singlePayment)){
+    log.error('canceled')
+    return;
+  }
+
   const singlePaymentUrl = singlePayment.valueOf()
 
   const subscription = await text({
@@ -56,6 +65,11 @@ export default async function invoice (){
     },
   });
 
+  if(isCancel(subscription)){
+    log.error('canceled')
+    return;
+  }
+
   const subscriptionUrl = subscription.valueOf()
 
   const locale = await text({
@@ -66,6 +80,11 @@ export default async function invoice (){
     },
   });
 
+  if(isCancel(locale)){
+    log.error('canceled')
+    return;
+  }
+
   const numberFormatLocale = locale.toString()
 
   const currency = await text({
@@ -75,6 +94,11 @@ export default async function invoice (){
       if (value.length === 0) return `Value is required!`;
     },
   });
+
+  if(isCancel(currency)){
+    log.error('canceled')
+    return;
+  }
 
   const numberFormatCurrency = currency.toString()
 
@@ -93,6 +117,11 @@ export default async function invoice (){
         ],
       });
 
+      if(isCancel(isDone)){
+        log.error('canceled')
+        return;
+      }
+
       done = !!isDone.valueOf()
     }
 
@@ -104,6 +133,11 @@ export default async function invoice (){
           if (value.length === 0) return `Value is required!`;
         },
       });
+
+      if(isCancel(n)){
+        log.error('canceled')
+        return;
+      }
 
       const data: {
         name: string
@@ -119,6 +153,11 @@ export default async function invoice (){
           { value: true, label: 'Yes' },
         ],
       });
+
+      if(isCancel(isPriceless)){
+        log.error('canceled')
+        return;
+      }
 
       if(isPriceless.valueOf()){
 
@@ -136,6 +175,11 @@ export default async function invoice (){
             if(Number(value) < 0) return 'Loss is not a billable thing';
           },
         });
+
+        if(isCancel(price)){
+          log.error('canceled')
+          return;
+        }
 
         data.price = Number(price.valueOf())
         items.push(data)
@@ -163,6 +207,8 @@ export default async function invoice (){
     date,
     type: 'invoice'
   })
+
+  if(!fileName) return;
 
   await writeFile( 
     `./scripts/data/invoice/${fileName}.json`, 

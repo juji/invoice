@@ -1,4 +1,4 @@
-import { text, log } from '@clack/prompts';
+import { text, log, isCancel } from '@clack/prompts';
 import { writeFile } from 'fs/promises'
 
 export default async function client (){
@@ -11,6 +11,11 @@ export default async function client (){
     },
   });
 
+  if(isCancel(cc)){
+    log.error('canceled')
+    return;
+  }
+
   const code = cc.valueOf().toString().toLowerCase().replace(/[\s\r\n]/g,'')
 
   const n = await text({
@@ -19,6 +24,11 @@ export default async function client (){
       if (value.length === 0) return `Value is required!`;
     },
   });
+
+  if(isCancel(n)){
+    log.error('canceled')
+    return;
+  }
 
   const name = n.valueOf()
 
@@ -29,6 +39,11 @@ export default async function client (){
     },
   });
 
+  if(isCancel(a)){
+    log.error('canceled')
+    return;
+  }
+
   const address = a.valueOf()
 
   const p = await text({
@@ -38,6 +53,11 @@ export default async function client (){
     },
   });
 
+  if(isCancel(p)){
+    log.error('canceled')
+    return;
+  }
+
   const person = p.valueOf()
 
   const e = await text({
@@ -46,6 +66,11 @@ export default async function client (){
       if (value.length === 0) return `Value is required!`;
     },
   });
+
+  if(isCancel(e)){
+    log.error('canceled')
+    return;
+  }
 
   const personEmail = e.valueOf()
 

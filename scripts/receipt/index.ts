@@ -1,4 +1,4 @@
-import { text, select, log } from '@clack/prompts';
+import { text, select, log, isCancel } from '@clack/prompts';
 import { readdir, writeFile, readFile } from 'fs/promises';
 import { buildAndDownload } from '../lib/build-and-download';
 import { isHttpsUri } from 'valid-url';
@@ -33,6 +33,11 @@ export default async function receipt (){
     })
   });
 
+  if(isCancel(invoiceId)){
+    log.error('canceled')
+    return;
+  }
+
   const invoice = invoiceId.valueOf()
   const invoiceObj = invoices.find(v => v.id === invoice)?.content
   if(!invoiceObj) throw new Error('Invoice object not found')
@@ -50,6 +55,11 @@ export default async function receipt (){
       }
     ]
   });
+
+  if(isCancel(paymentVia)){
+    log.error('canceled')
+    return;
+  }
   
   const paymentDoneVia = paymentVia.valueOf()
   const paymentUrl = paymentDoneVia === 'single' ? 
@@ -63,6 +73,11 @@ export default async function receipt (){
       if (!isHttpsUri(value)) return `Value needs to be a secure url (https)!`;
     },
   })
+
+  if(isCancel(paymentProof)){
+    log.error('canceled')
+    return;
+  }
 
   const paymentProofUrl = paymentProof.valueOf()
 
@@ -80,6 +95,8 @@ export default async function receipt (){
     date,
     type: 'receipt'
   })
+
+  if(!fileName) return;
   
   await writeFile( 
     `./scripts/data/receipt/${fileName}.json`, 

@@ -1,4 +1,4 @@
-import { text, log } from '@clack/prompts';
+import { text, log, isCancel } from '@clack/prompts';
 import { stat } from 'fs/promises';
 import { addLeadingZero } from '../lib/add-leading-zero';
 
@@ -36,6 +36,11 @@ export async function getVersionedFilename({
         if(Number(value) < 0) return 'You really want to test something? test your sanity';
       },
     });
+
+    if(isCancel(v)){
+      log.error('canceled')
+      return '';
+    }
 
     version = v.toString()
 
