@@ -2,8 +2,8 @@
   "date": "2025-01-06T20:39:57.264Z",
   "singlePaymentUrl": "https://url.com",
   "subscriptionUrl": "https://url.com",
-  "numberFormatLocale": "en-AU",
-  "numberFormatCurrency": "AUD",
+  "numberFormatLocale": "en-US",
+  "numberFormatCurrency": "USD",
   "client": {
     "code": "asdf",
     "name": "The Great Gatsby",

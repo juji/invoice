@@ -18,14 +18,25 @@ export async function buildAndDownload({
   file: string
 }){
 
+  
   // coyp sourcename to destination
   await copyFile(sourcename, destination)
 
-  
   const s = spinner();
   s.start('Running build');
-  await $`bun run build`.text()
-  s.stop('Docs Built');
+  try{
+    
+    await $`bun run build`.text()
+    s.stop('Docs Built');
+
+  }catch(e){
+    
+    s.stop('ERROR while Building');
+    await rm(destination)
+    throw e
+
+  }
+  
   
   const port = await getPort()
   const serve = serveStatic('build')

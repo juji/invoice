@@ -1,10 +1,4 @@
-import { intro, outro, select, log } from '@clack/prompts';
-
-const Acts = {
-  client: './client/index',
-  invoice: './invoice/index',
-  receipt: './receipt/index',
-}
+import { intro, outro, select, log, isCancel } from '@clack/prompts';
 
 console.log(`
 ██ ███    ██ ██    ██  ██████  ██  ██████ ███████ 
@@ -25,17 +19,41 @@ const act = await select({
   ],
 });
 
-if(act.valueOf() && Acts[act.valueOf()]){
+const val = act.valueOf()
+if(isCancel(val)){
+  outro(`bye`);
+  process.exit()
+}
+
+if(!val) throw new Error('no act')
+
+if( val === 'client' ){
   
   try{
-    const module = await import(Acts[act.valueOf()]).then(v => v.default)
+    const module = await import('./client/index').then(v => v.default)
     await module()
   }catch(e){
-    log.error(e)    
+    console.error(e)
   }
 
-}else{
-  log.error('No module with that name')
+}else if(val === 'invoice'){
+  
+  try{
+    const module = await import('./invoice/index').then(v => v.default)
+    await module()
+  }catch(e){
+    console.error(e) 
+  }
+
+}else if(val === 'receipt'){
+  
+  try{
+    const module = await import('./receipt/index').then(v => v.default)
+    await module()
+  }catch(e){
+    console.error(e) 
+  }
+
 }
 
 
