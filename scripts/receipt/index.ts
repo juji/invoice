@@ -6,10 +6,10 @@ import { isHttpsUri } from 'valid-url';
 
 async function getInvoices(){
 
-  const dirContents = await readdir('./src/lib/data/invoice')
+  const dirContents = await readdir('./scripts/data/invoice')
   return Promise.all(
     dirContents.map(async v => {
-      const str = await readFile( `./src/lib/data/invoice/${v}`, { encoding: 'utf8'} )
+      const str = await readFile( `./scripts/data/invoice/${v}`, { encoding: 'utf8'} )
       return {
         id: v.replace('.json',''),
         content: JSON.parse(str)
@@ -93,11 +93,13 @@ export default async function receipt (){
       `${addLeadingZero(now.getDate())}-${version}`
   
   await writeFile( 
-    `./src/lib/data/receipt/${fileName}.json`, 
+    `./scripts/data/receipt/${fileName}.json`, 
     JSON.stringify(data, null, 2) 
   )
 
   await buildAndDownload({
+    sourcename: `./scripts/data/receipt/${fileName}.json`,
+    destination: `./src/lib/data/receipt/${fileName}.json`,
     url: `/receipt/${fileName}.html`,
     file: `./results/${fileName}.pdf`
   })

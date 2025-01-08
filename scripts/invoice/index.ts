@@ -1,16 +1,16 @@
 import { text, select, log } from '@clack/prompts';
 import { readdir, writeFile, readFile } from 'fs/promises';
-import { type JInvoiceItem } from '../../src/lib/data/types'
+import { type JInvoiceItem } from '../../scripts/data/types'
 import { buildAndDownload } from '../lib/build-and-download';
 import { addLeadingZero } from '../lib/add-leading-zero';
 import { isHttpsUri } from 'valid-url';
 
 async function getClients(){
 
-  const dirContents = await readdir('./src/lib/data/client')
+  const dirContents = await readdir('./scripts/data/client')
   return Promise.all(
     dirContents.map(async v => {
-      const str = await readFile( `./src/lib/data/client/${v}`, { encoding: 'utf8'} )
+      const str = await readFile( `./scripts/data/client/${v}`, { encoding: 'utf8'} )
       return JSON.parse(str)
     })
   )
@@ -173,11 +173,13 @@ export default async function invoice (){
     `${addLeadingZero(now.getDate())}-${version}`
 
   await writeFile( 
-    `./src/lib/data/invoice/${fileName}.json`, 
+    `./scripts/data/invoice/${fileName}.json`, 
     JSON.stringify(data, null, 2) 
   )
 
   await buildAndDownload({
+    sourcename: `./scripts/data/invoice/${fileName}.json`,
+    destination: `./src/lib/data/invoice/${fileName}.json`,
     url: `/invoice/${fileName}.html`,
     file: `./results/${fileName}.pdf`
   })

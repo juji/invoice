@@ -5,14 +5,21 @@ import serveStatic from 'serve-static'
 import finalhandler from 'finalhandler'
 import { $ } from 'bun';
 import getPort from 'get-port';
-
+import { copyFile, rm } from 'fs/promises';
 
 export async function buildAndDownload({
+  sourcename, 
+  destination,
   url, file
 }:{
- url: string
- file: string
+  sourcename: string
+  destination: string
+  url: string
+  file: string
 }){
+
+  // coyp sourcename to destination
+  await copyFile(sourcename, destination)
 
   
   const s = spinner();
@@ -27,6 +34,11 @@ export async function buildAndDownload({
   })
 
   await new Promise<void>((r,j) => {
+    
+    server.on('error',(e) => {
+      j(e)
+    })
+
     server.listen(port, async () => {
       try{
         const browser = await puppeteer.launch();
@@ -43,5 +55,12 @@ export async function buildAndDownload({
         j(e)
       }
     })
+
+  }).finally(async () => {
+
+    // remove destination
+    return await rm(destination)
   })
+
+
 }

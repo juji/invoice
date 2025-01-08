@@ -53,7 +53,7 @@ export default async function client (){
     code, name, address, person, personEmail
   }, null, 2)
 
-  await writeFile( `./src/lib/data/client/${code}.json`, data )  
+  await writeFile( `./scripts/data/client/${code}.json`, data )  
 
   log.success('created')
 

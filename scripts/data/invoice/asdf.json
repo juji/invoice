@@ -1,0 +1,23 @@
+{
+  "date": "2025-01-06T20:39:57.264Z",
+  "singlePaymentUrl": "https://url.com",
+  "subscriptionUrl": "https://url.com",
+  "numberFormatLocale": "en-AU",
+  "numberFormatCurrency": "AUD",
+  "client": {
+    "code": "asdf",
+    "name": "The Great Gatsby",
+    "address": "Gatbsy Boulevard, 21.",
+    "person": "Mr. Gatsby",
+    "personEmail": "gatsby@somewhere.com"
+  },
+  "items": [
+    {
+      "name": "Doing mischievous stuff",
+      "price": 99999
+    },
+    {
+      "name": "Doing good stuff"
+    }
+  ]
+}
