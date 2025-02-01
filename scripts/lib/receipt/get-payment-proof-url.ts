@@ -4,7 +4,7 @@ import { isHttpsUri } from "valid-url";
 export async function getPaymentProofUrl(){
 
   return await text({
-    message: 'What is the paymentProofUrl?',
+    message: 'If there is a paymentProofUrl, insert it here:',
     initialValue: '',
     validate(value) {
       if (value.length && !isHttpsUri(value)) return `Value needs to be a secure url (https)!`;
