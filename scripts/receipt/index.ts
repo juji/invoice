@@ -1,5 +1,5 @@
 import { log, isCancel } from '@clack/prompts';
-import { writeFile } from 'fs/promises';
+import { writeFile, copyFile, rm } from 'fs/promises';
 import { buildAndDownload } from '../lib/build-and-download';
 import { getVersionedFilename } from '../lib/get-versioned-filename';
 import { getInvoices } from '../lib/receipt/get-invoices'
@@ -45,7 +45,7 @@ export default async function receipt ( par?: ReceiptParams ){
     return;
   }
 
-  const paymentProofUrl = paymentProof.valueOf()
+  const paymentProofUrl = paymentProof?.valueOf() || ''
 
   const date = new Date()
   const data = {
@@ -56,7 +56,7 @@ export default async function receipt ( par?: ReceiptParams ){
     date: date.toISOString()
   }
 
-  const fileName = await getVersionedFilename({ 
+  const fileName = await getVersionedFilename({
     clientCode: invoiceObj.client.code,
     date,
     type: 'receipt'
@@ -69,12 +69,21 @@ export default async function receipt ( par?: ReceiptParams ){
     JSON.stringify(data, null, 2) 
   )
 
+  // copy invoice
+  await copyFile(
+    `./scripts/data/invoice/${invoiceId}.json`,
+    `./src/lib/data/invoice/${invoiceId}.json`,
+  )
+
   await buildAndDownload({
     sourcename: `./scripts/data/receipt/${fileName}.json`,
     destination: `./src/lib/data/receipt/${fileName}.json`,
     url: `/receipt/${fileName}.html`,
     file: `./results/${fileName}.pdf`
   })
+
+  // remove invoice
+  await rm(`./src/lib/data/invoice/${invoiceId}.json`)
 
   log.success('done')
 

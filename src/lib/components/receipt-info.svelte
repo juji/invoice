@@ -17,9 +17,15 @@
     Payment was done via {paymentDoneVia === 'single' ? 'Single Payment' : 'Subscription'}.
   </p>
   {/if}
+  {#if paymentProofUrl}
   <p>
     <a target="_blank" href={paymentProofUrl}>See Proof of Payment</a>
   </p>
+  {:else}
+  <p>
+    Payment Proof was sent along with this document.
+  </p>
+  {/if}
 </div>
 
 <style>
