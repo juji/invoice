@@ -32,7 +32,15 @@ It will ask you what to do.
 
 ## Security and Storage
 
-It requires you to have a secure accessible subscription/payment url (https), and a secure url to view the payment receipt.
+It requires you to have a secure accessible subscription/payment url (https).
+
+A secure url to view the payment receipt is optional, 
+since you can just send the original payment receipt with your receipt.
+
+In case you don't set a secure url for payment receipt, it will say:
+```
+Proof of Payment was sent along with this document.
+```
 
 For storage, it is advised to keep this in a private repo. Since your data is written in json format.
 

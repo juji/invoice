@@ -23,7 +23,7 @@
   </p>
   {:else}
   <p>
-    Payment Proof was sent along with this document.
+    Proof of Payment was sent along with this document.
   </p>
   {/if}
 </div>
