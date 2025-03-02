@@ -75,7 +75,7 @@ export async function addItems( defaultAmount: number ){
 
         const price = await text({
           message: 'What\'s the price?',
-          defaultValue: defaultAmount ? defaultAmount+'' : '',
+          initialValue: defaultAmount ? defaultAmount+'' : '',
           validate(value) {
             if (value.length === 0) return `Value is required!`;
             if(!Number(value)) return 'It should be a number with value';
